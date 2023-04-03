@@ -1,0 +1,47 @@
+#! /usr/bin/env node
+
+// 1. 配置可执行命令 commander
+const commander = require("commander");
+const chalk = require("chalk");
+// 核心功能
+/**
+ * 1、创建项目
+ * 2. 更改配置文件
+ * 3. UI界面
+ *
+ * */
+
+commander
+  .command(`create <app-name>`)
+  .description(`create a new project`)
+  .option(`-f, --force`, `overwrite target directory if it existed`)
+  .action((name, cmd) => {
+    // 调用create模块去创建
+    console.log("log---", name, cmd);
+  });
+
+commander
+  .command(`config [value]`)
+  .description(`inspect and modify the config`)
+  .option("-g, --get <path>", "get value from option")
+  .option("-s, --set <path> <value>")
+  .option("-d, --delete <path>", "delete option from config")
+  .action((value, cmd) => {
+    console.log("config---", value, cmd);
+  });
+
+commander
+  .version(`space-cli@${require("../package.json").version}`)
+  .usage(`<command> [option]`);
+
+commander.on("--help", function () {
+  console.log(`Run ${chalk.red("space-cli <command> --help")} show details`);
+});
+
+commander.parse(process.argv);
+
+// 2. 实现脚手架 先做一个命令行交互的功能 inquirer
+
+// 3. 将模板下载下来 download-git-repo
+
+// 4. 根据用户选择动态生成内容
